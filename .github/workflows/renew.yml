@@ -30,4 +30,5 @@ jobs:
           ACL_PASSWORD: ${{ secrets.ACL_PASSWORD }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          PROXY_URL: ${{ secrets.PROXY_URL }}
         run: node renew.js
