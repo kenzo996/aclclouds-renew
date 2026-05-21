@@ -150,8 +150,14 @@ async function notify(message, photoPath) {
       if (can_renew) {
         console.log('  [RENEWING]...');
         const renewResp = await page.evaluate(async (uuid) => {
+          const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+          const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
           const r = await fetch(`/api/client/servers/${uuid}/upgrade/renew`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }
+            method: 'POST', headers: { 
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': csrfToken,
+              'X-Requested-With': 'XMLHttpRequest'
+            }
           });
           return r.json();
         }, uuid);
